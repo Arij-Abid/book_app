@@ -18,22 +18,34 @@ pipeline {
         stage('Build Frontend') {
             steps {
                 dir('book-network-ui') {
-                    sh '''
-                    docker build -t arijabid/frontend:$BUILD_ID .
-                    docker push arijabid/frontend:$BUILD_ID
-                    docker rmi arijabid/frontend:$BUILD_ID
-                    '''
+                    script {
+                        if (fileExists('Dockerfile')) {
+                            sh '''
+                            docker build -t arijabid/frontend:$BUILD_ID .
+                            docker push arijabid/frontend:$BUILD_ID
+                            docker rmi arijabid/frontend:$BUILD_ID
+                            '''
+                        } else {
+                            error "Dockerfile is missing in the book-network-ui directory"
+                        }
+                    }
                 }
             }
         }
         stage('Build Backend') {
             steps {
                 dir('book-network') {
-                    sh '''
-                    docker build -t arijabid/backend:$BUILD_ID .
-                    docker push arijabid/backend:$BUILD_ID
-                    docker rmi arijabid/backend:$BUILD_ID
-                    '''
+                    script {
+                        if (fileExists('Dockerfile')) {
+                            sh '''
+                            docker build -t arijabid/backend:$BUILD_ID .
+                            docker push arijabid/backend:$BUILD_ID
+                            docker rmi arijabid/backend:$BUILD_ID
+                            '''
+                        } else {
+                            error "Dockerfile is missing in the book-network directory"
+                        }
+                    }
                 }
             }
         }
