@@ -9,7 +9,6 @@ import {ReturnedBooksComponent} from './pages/returned-books/returned-books.comp
 import {authGuard} from '../../services/guard/auth.guard';
 import {BookDetailsComponent} from './pages/book-details/book-details.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { ListpdfBookComponent } from './components/listpdf-book/listpdf-book.component';
 
 const routes: Routes = [
   {
@@ -21,12 +20,6 @@ const routes: Routes = [
       {
         path: '',
         component: BookListComponent,
-        canActivate: [authGuard]
-      },
-
-      {
-        path: 'my-pdf',
-        component: ListpdfBookComponent,
         canActivate: [authGuard]
       },
       {

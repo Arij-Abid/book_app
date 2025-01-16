@@ -9,8 +9,6 @@
   .pg-footer {
     font-family: 'Roboto', sans-serif;
   }
-  
-  
   .footer {
       background-color: #3b0e64b0;
       color: #fff;
@@ -128,10 +126,6 @@
       text-decoration: none;
   }
   
-  
-  
-  
-  
   .footer-social-links {
       bottom: 0;
       height: 54px;
@@ -189,26 +183,13 @@
       transition: fill .2s;
   }
   
-  .footer-social-link.twitter {
+  .footer-social-link.github  {
       height: 28px;
       left: 62px;
       top: 3px;
       width: 50px;
   }
   
-  .footer-social-link.youtube {
-      height: 24px;
-      left: 123px;
-      top: 12px;
-      width: 50px;
-  }
-  
-  .footer-social-link.github {
-      height: 34px;
-      left: 172px;
-      top: 7px;
-      width: 50px;
-  }
   
   .footer-copyright {
       background-color: #8960ccea;
@@ -302,13 +283,6 @@
         width: 24.99%;
     }
   }
-  @media (min-width: 568px) {
-    /* .footer-content-column {
-        width: 49.99%;
-    } */
-  }
-
-
 
   .scroll-to-top {
   position: fixed;

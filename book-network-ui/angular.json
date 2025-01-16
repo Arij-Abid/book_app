@@ -17,6 +17,11 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+            "js-sha256",
+            "sockjs-client",
+            "stompjs"
+              ],
             "outputPath": "dist/book-network-ui",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -30,16 +35,12 @@
               "src/favicon.ico",
               "src/assets",
               "src/assets/img"
-
-      
             ],
             "styles": [
               "src/styles.scss"
-
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-      
                         ]
           },
           "configurations": {

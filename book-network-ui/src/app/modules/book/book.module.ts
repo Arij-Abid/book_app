@@ -15,7 +15,6 @@ import { ReturnedBooksComponent } from './pages/returned-books/returned-books.co
 import { BookDetailsComponent } from './pages/book-details/book-details.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { ListpdfBookComponent } from './components/listpdf-book/listpdf-book.component';
 
 
 @NgModule({
@@ -31,8 +30,7 @@ import { ListpdfBookComponent } from './components/listpdf-book/listpdf-book.com
     ReturnedBooksComponent,
     BookDetailsComponent,
     NotFoundComponent,
-    FooterComponent,
-    ListpdfBookComponent
+    FooterComponent
   ],
   imports: [
     CommonModule,
