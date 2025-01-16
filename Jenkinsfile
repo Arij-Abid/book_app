@@ -15,40 +15,6 @@ pipeline {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }
-        stage('Build Frontend') {
-            steps {
-                dir('book-network-ui') {
-                    script {
-                        if (fileExists('Dockerfile')) {
-                            sh '''
-                            docker build -t arijabid/frontend:$BUILD_ID .
-                            docker push arijabid/frontend:$BUILD_ID
-                            docker rmi arijabid/frontend:$BUILD_ID
-                            '''
-                        } else {
-                            error "Dockerfile is missing in the book-network-ui directory"
-                        }
-                    }
-                }
-            }
-        }
-        stage('Build Backend') {
-            steps {
-                dir('book-network') {
-                    script {
-                        if (fileExists('Dockerfile')) {
-                            sh '''
-                            docker build -t arijabid/backend:$BUILD_ID .
-                            docker push arijabid/backend:$BUILD_ID
-                            docker rmi arijabid/backend:$BUILD_ID
-                            '''
-                        } else {
-                            error "Dockerfile is missing in the book-network directory"
-                        }
-                    }
-                }
-            }
-        }
         stage('Deploy with Docker Compose') {
             steps {
                 writeFile file: 'docker-compose.override.yml', text: '''
@@ -69,6 +35,42 @@ pipeline {
                 '''
             }
         }
+        stage('Build Backend') {
+            steps {
+                dir('book-network') {
+                    script {
+                        if (fileExists('Dockerfile')) {
+                            sh '''
+                            docker build -t arijabid/backend:$BUILD_ID .
+                            docker push arijabid/backend:$BUILD_ID
+                            docker rmi arijabid/backend:$BUILD_ID
+                            '''
+                        } else {
+                            error "Dockerfile is missing in the book-network directory"
+                        }
+                    }
+                }
+            }
+        }
+        stage('Build Frontend') {
+            steps {
+                dir('book-network-ui') {
+                    script {
+                        if (fileExists('Dockerfile')) {
+                            sh '''
+                            docker build -t arijabid/frontend:$BUILD_ID .
+                            docker push arijabid/frontend:$BUILD_ID
+                            docker rmi arijabid/frontend:$BUILD_ID
+                            '''
+                        } else {
+                            error "Dockerfile is missing in the book-network-ui directory"
+                        }
+                    }
+                }
+            }
+        }
+        
+        
         stage('Cleanup') {
             steps {
                 sh 'docker logout'
