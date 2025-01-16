@@ -1,5 +1,5 @@
 # Étape 1: Utiliser l'image de Node.js pour la construction
-FROM node:16 AS build
+FROM node:18 AS build
 
 # Répertoire de travail dans le conteneur
 WORKDIR /app
@@ -12,8 +12,8 @@ RUN npm install
 # Copier tous les fichiers source dans le conteneur
 COPY . .
 
-# Construire l'application Angular en mode production
-RUN ng build --prod
+# Construire l'application Angular en mode production (correction de l'option avec Angular 16)
+RUN ng build --configuration production
 
 # Étape 2: Utiliser l'image Nginx pour servir l'application
 FROM nginx:alpine
