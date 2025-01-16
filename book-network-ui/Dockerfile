@@ -1,19 +1,28 @@
-FROM node:18 as build-stage
+# Étape 1: Utiliser l'image de Node.js pour la construction
+FROM node:18 AS build
 
+# Répertoire de travail dans le conteneur
 WORKDIR /app
 
+# Copier package.json et package-lock.json (si présents) pour installer les dépendances
 COPY package*.json ./
-
+RUN npm install -g @angular/cli@16.1.0
 RUN npm install
 
+# Copier tous les fichiers source dans le conteneur
 COPY . .
 
-RUN npm run build
+# Construire l'application Angular en mode production (correction de l'option avec Angular 16)
+RUN ng build --configuration production
 
+# Étape 2: Utiliser l'image Nginx pour servir l'application
 FROM nginx:alpine
 
-COPY nginx.conf /etc/nginx/nginx.conf
+# Copier les fichiers buildés dans le répertoire d'Nginx
+COPY --from=build /app/dist/book-network-ui /usr/share/nginx/html
 
-COPY --from=build-stage /app/dist/book-network-ui/browser /usr/share/nginx/html
-
+# Exposer le port 80 pour l'application
 EXPOSE 80
+
+# Démarrer Nginx
+CMD ["nginx", "-g", "daemon off;"]
