@@ -1,0 +1,153 @@
+
+
+  <section class="position-relative d-flex align-items-center bg-light-gray"
+      style="
+      background-image: url(assets/img/banner-image-bg.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; height: 800px;">
+      <div class="position-absolute end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next main-slider-button-next">
+        <svg class="chevron-forward-circle d-flex justify-content-center align-items-center p-2" width="80" height="80">
+          <use xlink:href="#alt-arrow-right-outline"></use>
+        </svg>
+      </div>
+      <div class="position-absolute start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev main-slider-button-prev">
+        <svg class="chevron-back-circle d-flex justify-content-center align-items-center p-2" width="80" height="80">
+          <use xlink:href="#alt-arrow-left-outline"></use>
+        </svg>
+      </div>
+      <div class="swiper main-swiper">
+        <div class="swiper-wrapper d-flex align-items-center">
+          <div class="swiper-slide">
+            <div class="container">
+              <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
+                <div class="col-md-5 offset-md-1 mt-5 mt-md-0 text-center text-md-start">
+                  <div class="banner-content">
+                    <h2 style="font-size: 50px;">Book Collection</h2>
+                    <p>Best Book Collection</p>
+                    <a  routerLink="my-books" class="btn mt-3"
+                     style="border-radius: 35px;padding-left: 30px;padding-right: 30px;
+                      padding-top: 10px;padding-bottom: 10px; background-color: orange;color: white;">
+                     Books
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-6 text-center">
+                  <div class="image-holder">
+                    <img src="assets/img/book.svg" class="img-fluid" alt="banner">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+  
+        </div>
+      </div>
+    </section>
+
+
+    <br><br><br>
+    <section>
+        <div class="container">
+            <h3><strong>Books list</strong></h3>
+            <form class="d-flex gap-2 align-items-center" role="search">
+                <input class="form-control" type="search" placeholder="Find a book" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+              </form>
+
+            <div class="search_input" id="search_input_box">
+                <div class="container">
+                  <form class="d-flex justify-content-between">
+                    <input type="text" class="form-control" id="search_input" placeholder="Search Here">
+                    <button type="submit" class="btn">ddff</button>
+                    <span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+                  </form>
+                </div>
+              </div>
+
+            <div
+              *ngIf="message"
+              class="alert "
+              [class.alert-danger]="level==='error'"
+              [class.alert-success]="level==='success'"
+              role="alert"
+            >
+              <p>{{message}}</p>
+            </div>
+
+            <div class="d-flex justify-content-start gap-2 flex-wrap">
+              <app-book-card
+                *ngFor="let book of bookResponse.content"
+                [book]="book"
+                (borrow)="borrowBook($event)"
+                (details)="displayBookDetails($event)"
+              ></app-book-card>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item">
+                    <a
+                      (click)="goToFirstPage()"
+                      class="page-link"
+                      href="javascript:void(0)"
+                      aria-label="Previous"
+                      [class.disabled]="page === 0"
+                    >
+                      <i class="fa-solid fa-angles-left"></i>
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a
+                      (click)="goToPreviousPage()"
+                      class="page-link"
+                      href="javascript:void(0)"
+                      aria-label="Previous"
+                      [class.disabled]="page === 0"
+                    >
+                      <i class="fa-solid fa-angle-left"></i>
+                    </a>
+                  </li>
+                  <li
+                    class="page-item"
+                    *ngFor="let pageIndex of pages"
+                  >
+                    <a
+                      (click)="gotToPage(pageIndex)"
+                      class="page-link"
+                      [class.active]="page === pageIndex"
+                      href="javascript:void(0)"
+                    >{{ pageIndex + 1 }}</a>
+                  </li>
+                  <li class="page-item">
+                    <a
+                      (click)="goToNextPage()"
+                      class="page-link"
+                      href="javascript:void(0)"
+                      aria-label="Next"
+                      [class.disabled]="isLastPage"
+                    >
+                      <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a
+                      (click)="goToLastPage()"
+                      class="page-link"
+                      href="javascript:void(0)"
+                      aria-label="Next"
+                      [class.disabled]="isLastPage"
+                    >
+                      <i class="fa-solid fa-angles-right"></i>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            
+            
+        </div>
+    </section>
+
+
+
+
+      <br>
